@@ -3,6 +3,7 @@ package com.example.budget.ui.main
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +17,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: TransactionViewModel
     private lateinit var adapter: TransactionAdapter
 
+    private val addTransactionLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        // Повторно обновляем данные после возврата
+        viewModel.transactions.observe(this) { transactions ->
+            adapter.updateTransactions(transactions)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -28,14 +38,11 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         viewModel.transactions.observe(this) { transactions ->
-            Log.d("MainActivityLog", "Updated transactions: $transactions")
             adapter.updateTransactions(transactions)
         }
 
         findViewById<FloatingActionButton>(R.id.fab_add_transaction).setOnClickListener {
-            startActivity(Intent(this, AddTransactionActivity::class.java))
+            addTransactionLauncher.launch(Intent(this, AddTransactionActivity::class.java))
         }
     }
-
-
 }

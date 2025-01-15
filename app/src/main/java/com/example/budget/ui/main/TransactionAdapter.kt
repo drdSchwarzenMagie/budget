@@ -37,8 +37,23 @@ class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.TransactionVi
             val categoryTextView = itemView.findViewById<TextView>(R.id.categoryTextView)
             val amountTextView = itemView.findViewById<TextView>(R.id.amountTextView)
 
+            // Установка текста
             categoryTextView.text = transaction.category
-            amountTextView.text = transaction.amount.toString()
+            val formattedAmount = if (transaction.type == "income") {
+                "+${transaction.amount}"
+            } else {
+                "-${transaction.amount}"
+            }
+            amountTextView.text = formattedAmount
+
+            // Установка цвета
+            val color = if (transaction.type == "income") {
+                itemView.context.getColor(android.R.color.holo_green_dark)
+            } else {
+                itemView.context.getColor(android.R.color.holo_red_dark)
+            }
+            amountTextView.setTextColor(color)
         }
     }
 }
+

@@ -12,18 +12,17 @@ import com.example.budget.data.Transaction
 import kotlinx.coroutines.launch
 
 class TransactionViewModel(application: Application) : AndroidViewModel(application) {
-    private val db = Room.databaseBuilder(
-        application,
-        AppDatabase::class.java,
-        "budget_db"
-    ).build()
+    private val db = AppDatabase.getDatabase(application)
 
     val transactions: LiveData<List<Transaction>> = db.transactionDao().getAllTransactions()
 
     fun addTransaction(transaction: Transaction) {
         viewModelScope.launch {
+            Log.d("TransactionViewModel", "Before insert: $transaction")
             db.transactionDao().insertTransaction(transaction)
+            Log.d("TransactionViewModel", "After insert: $transaction")
         }
-        Log.d("TransactionViewModel", "Transactions: ${transactions.value}")
     }
+
 }
+
