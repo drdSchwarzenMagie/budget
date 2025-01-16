@@ -18,4 +18,8 @@ interface TransactionDao {
 
     @Insert
     suspend fun insertTransaction(transaction: Transaction): Long
+
+    @Query("SELECT SUM(CASE WHEN type = 'income' THEN amount ELSE -amount END) FROM transactions")
+    fun getTotalAmount(): LiveData<Double?>
+
 }

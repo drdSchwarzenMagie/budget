@@ -15,14 +15,14 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
     private val db = AppDatabase.getDatabase(application)
 
     val transactions: LiveData<List<Transaction>> = db.transactionDao().getAllTransactions()
+    val totalAmount: LiveData<Double?> = db.transactionDao().getTotalAmount()
 
     fun addTransaction(transaction: Transaction) {
         viewModelScope.launch {
-            Log.d("TransactionViewModel", "Before insert: $transaction")
             db.transactionDao().insertTransaction(transaction)
-            Log.d("TransactionViewModel", "After insert: $transaction")
         }
     }
-
 }
+
+
 
