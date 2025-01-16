@@ -10,8 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import android.widget.TextView
 import com.example.budget.R
 import com.example.budget.ui.addtransaction.AddTransactionActivity
+import com.example.budget.ui.chart.ChartActivity
 import com.example.budget.viewmodel.TransactionViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.github.mikephil.charting.charts.PieChart
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: TransactionViewModel
@@ -53,5 +56,11 @@ class MainActivity : AppCompatActivity() {
         findViewById<FloatingActionButton>(R.id.fab_add_transaction).setOnClickListener {
             addTransactionLauncher.launch(Intent(this, AddTransactionActivity::class.java))
         }
+
+        findViewById<FloatingActionButton>(R.id.fab_view_charts).setOnClickListener {
+            val intent = Intent(this, ChartActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }

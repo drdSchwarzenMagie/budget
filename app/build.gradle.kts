@@ -76,4 +76,8 @@ dependencies {
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
+
+    implementation(libs.mpandroidchart)
+    implementation("com.github.PhilJay:MPAndroidChart:3.1.0")
+
 }
