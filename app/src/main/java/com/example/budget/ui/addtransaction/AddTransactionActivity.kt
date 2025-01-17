@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.budget.R
@@ -23,7 +24,18 @@ class AddTransactionActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
         adapter = TransactionAdapter()
 
-        findViewById<Button>(R.id.button_save).setOnClickListener {
+        val buttonSave = findViewById<Button>(R.id.button_save)
+        val radioGroup = findViewById<RadioGroup>(R.id.radio_group_type)
+
+        // Устанавливаем начальное состояние кнопки
+        buttonSave.isEnabled = false
+
+        // Устанавливаем слушатель для изменения состояния радиокнопок
+        radioGroup.setOnCheckedChangeListener { _, _ ->
+            buttonSave.isEnabled = radioGroup.checkedRadioButtonId != -1
+        }
+
+        buttonSave.setOnClickListener {
             val amount = findViewById<EditText>(R.id.edit_text_amount).text.toString().toDouble()
             val category = findViewById<EditText>(R.id.edit_text_category).text.toString()
             val type = if (findViewById<RadioButton>(R.id.radio_income).isChecked) "income" else "expense"

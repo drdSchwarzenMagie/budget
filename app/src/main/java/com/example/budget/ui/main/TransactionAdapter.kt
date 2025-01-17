@@ -31,13 +31,11 @@ class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.TransactionVi
 
     override fun getItemCount(): Int = transactions.size
 
-    // ViewHolder для транзакции
     class TransactionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(transaction: Transaction) {
             val categoryTextView = itemView.findViewById<TextView>(R.id.categoryTextView)
             val amountTextView = itemView.findViewById<TextView>(R.id.amountTextView)
 
-            // Установка текста
             categoryTextView.text = transaction.category
             val formattedAmount = if (transaction.type == "income") {
                 "+${transaction.amount}"
@@ -46,7 +44,6 @@ class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.TransactionVi
             }
             amountTextView.text = formattedAmount
 
-            // Установка цвета
             val color = if (transaction.type == "income") {
                 itemView.context.getColor(android.R.color.holo_green_dark)
             } else {

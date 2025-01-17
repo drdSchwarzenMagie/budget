@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         // Наблюдение за общей суммой
         val totalAmountTextView = findViewById<TextView>(R.id.text_total_amount)
         viewModel.totalAmount.observe(this) { totalAmount ->
-            totalAmountTextView.text = "Total: ${totalAmount ?: 0.00}"
+            totalAmountTextView.text = "Всего: ${totalAmount ?: 0.00}"
         }
 
         // Обработчик нажатия на кнопку добавления транзакции
