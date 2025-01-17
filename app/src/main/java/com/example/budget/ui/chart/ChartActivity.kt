@@ -41,14 +41,14 @@ class ChartActivity : AppCompatActivity() {
 
             // Построим график для доходов
             val incomeEntries = incomeCategories.map { PieEntry(it.second.toFloat(), it.first) }
-            val incomeDataSet = PieDataSet(incomeEntries, "Income Categories")
+            val incomeDataSet = PieDataSet(incomeEntries, "Доход по категориям")
             incomeDataSet.colors = generateRandomColors(incomeEntries.size)
             incomePieChart.data = PieData(incomeDataSet)
             incomePieChart.invalidate()
 
             // Построим график для расходов
             val expenseEntries = expenseCategories.map { PieEntry(it.second.toFloat(), it.first) }
-            val expenseDataSet = PieDataSet(expenseEntries, "Expense Categories")
+            val expenseDataSet = PieDataSet(expenseEntries, "Расход по категориям")
             expenseDataSet.colors = generateRandomColors(expenseEntries.size)
             expensePieChart.data = PieData(expenseDataSet)
             expensePieChart.invalidate()
